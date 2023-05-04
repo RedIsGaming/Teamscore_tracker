@@ -1,0 +1,7 @@
+{
+  "type": "module",
+
+  "dependencies": {
+    "mariadb": "^3.1.2"
+  }
+}
