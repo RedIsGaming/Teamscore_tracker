@@ -1,7 +1,13 @@
 {
   "type": "module",
-
   "dependencies": {
     "mariadb": "^3.1.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
+  },
+  "scripts": {
+    "build": "tailwindcss -i src/input.css -o src/css/style.css",
+    "watch": "tailwindcss -i src/input.css -o src/css/style.css --watch"
   }
 }
