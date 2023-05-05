@@ -1,0 +1,12 @@
+*, html, body {
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    font-weight: 300;
+    box-sizing: border-box;
+    transition: all 0.3s;
+    background-color: rgb(17 24 39);
+}
