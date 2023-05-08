@@ -9,11 +9,12 @@ async function connect() {
     //A try to connect to the DB.
     try {
         conn = await mariadb.createConnection({
-            host: 'your_host',
-            port: 'your_port',
-            database: 'your_database',
-            user: 'your_user',
-            password: 'your_password'
+            //Put your own stuff in here.
+            host: '',
+            port: '',
+            database: '',
+            user: '',
+            password: ''
         });
 
         console.log("DB connection made.");
