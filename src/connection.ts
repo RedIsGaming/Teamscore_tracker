@@ -1,21 +1,38 @@
-import mariadb from 'mariadb';
+//Import for the mariadb module.
+const mariadb = require('mariadb');
 
-const pool = mariadb.createPool({
-    host: 'localhost',
-    database: 'PRT',
-    user: 'root',
-    password: 'your_password'
-});
+//A local variable with the any type.
+let conn: any;
 
-async function main() {
+//An async function connect that attempts a DB connection.
+async function connect() {
+    //A try to connect to the DB.
     try {
-        let conn = await pool.getConnection();
-        let rows = await conn.query("SELECT * FROM `Teams`");
+        conn = await mariadb.createConnection({
+            host: 'your_host',
+            port: 'your_port',
+            database: 'your_database',
+            user: 'your_user',
+            password: 'your_password'
+        });
 
-        console.log("It works...");
+        console.log("DB connection made.");
     }
 
-    catch(err) {}
+    //If the connection fails, then a catch will happen.
+    catch (err) {
+        console.error("An error occurred: ", err);
+        
+        if (conn) {
+            conn.end();
+        }
+    } 
+    
+    //No matter the output, execute the connection anyways.
+    finally {
+        return conn ? conn.end() : conn;
+    }
 }
 
-main();
+//Call the connect function here.
+connect();
