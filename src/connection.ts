@@ -1,39 +1,33 @@
-//Import for the mariadb module.
-const mariadb = require('mariadb');
+import { Connection } from "mariadb";
 
-//A local variable with the any type.
-let conn: any;
+const mariadb: any = require("mariadb");
+let conn: Connection;
 
-//An async function connect that attempts a DB connection.
-async function connect() {
-    //A try to connect to the DB.
-    try {
-        conn = await mariadb.createConnection({
-            //Put your own stuff in here.
-            host: '',
-            port: '',
-            database: '',
-            user: '',
-            password: ''
-        });
-
-        console.log("DB connection made.");
-    }
-
-    //If the connection fails, then a catch will happen.
-    catch (err) {
-        console.error("An error occurred: ", err);
+export default function connection(): Promise<{}> {
+    return new Promise<{}>((resolve: any, reject: any) => {
+        conn = mariadb.createConnection({
+            host: "localhost",
+            port: "3307",
+            database: "PRT",
+            user: process.env.USER,
+            password: process.env.PASSWORD
+        })
         
-        if (conn) {
-            conn.end();
-        }
-    } 
-    
-    //No matter the output, execute the connection anyways.
-    finally {
-        return conn ? conn.end() : conn;
-    }
+        .then((conn: Connection) => {
+            resolve(conn);
+        })
+
+        .catch((err: Error) => {
+            reject(new Error("Failed to establish a DB connection! \n" + err.message));
+        });
+    });
 }
 
-//Call the connect function here.
-connect();
+connection().then((conn: any) => {
+    console.log("Successfully connected to the DB!");
+    conn.end();
+})
+
+.catch((err: Error) => {
+    console.error(new Error("Cannot connect to the server! \n" + err.message));
+});
